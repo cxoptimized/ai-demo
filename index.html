@@ -162,7 +162,7 @@
                 <!-- Post-Demo CTA -->
                 <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border: 1px solid #22c55e;">
                     <h4 style="color: #059669; margin-bottom: 1rem;">Ready to Audit Your Real AI System?</h4>
-                    <a href="#contact" class="btn-secondary">📞 Schedule Your AI Risk Assessment</a>
+                    <button onclick="openContactForm()" class="btn-secondary">📞 Schedule Your AI Risk Assessment</button>
                     <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">Free consultation • Immediate insights • No obligation</p>
                 </div>
             </div>
@@ -252,10 +252,10 @@
                 Join the companies who prioritize AI safety and customer trust. Schedule your consultation today.
             </p>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                <a href="/contact" style="background: #22c55e; color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+                <button onclick="openContactForm()" style="background: #22c55e; color: white; padding: 1rem 2rem; border-radius: 25px; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
                     📞 Schedule Your AI Risk Assessment
-                </a>
-                <a href="mailto:info@cxoptimized.com" style="background: transparent; border: 2px solid white; color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
+                </button>
+                <a href="mailto:cxoptimized@gmail.com" style="background: transparent; border: 2px solid white; color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
                     ✉️ Email for Urgent AI Issues
                 </a>
             </div>
@@ -276,6 +276,38 @@
                     📋 Download Free AI Audit Checklist
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Contact Form Modal -->
+    <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 5% auto; position: relative; max-height: 80vh; overflow-y: auto;">
+            <button onclick="closeContactForm()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280;">×</button>
+            
+            <h3 style="color: #1e3a8a; margin-bottom: 1rem;">Schedule Your AI Risk Assessment</h3>
+            <p style="color: #6b7280; margin-bottom: 2rem;">Get your free consultation with our AI auditing experts.</p>
+            
+            <form action="https://formspree.io/f/mdkzevwr" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; box-sizing: border-box;">
+                
+                <input type="email" name="email" placeholder="Business Email" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; box-sizing: border-box;">
+                
+                <input type="text" name="company" placeholder="Company Name" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; box-sizing: border-box;">
+                
+                <select name="urgency" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; box-sizing: border-box;">
+                    <option value="">How urgent is your AI audit need?</option>
+                    <option value="immediate">Immediate (Within 1 week)</option>
+                    <option value="soon">Soon (Within 1 month)</option>
+                    <option value="planning">Planning (Within 3 months)</option>
+                    <option value="exploring">Just exploring options</option>
+                </select>
+                
+                <textarea name="message" placeholder="Tell us about your AI systems and concerns..." rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; resize: vertical; box-sizing: border-box;"></textarea>
+                
+                <button type="submit" style="width: 100%; background: #22c55e; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+                    📅 Send Request & Schedule Call
+                </button>
+            </form>
         </div>
     </div>
 
@@ -416,7 +448,25 @@
             }, 2000);
         }
 
+        function openContactForm() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function closeContactForm() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
         document.getElementById('scenarioSelect').addEventListener('change', updateScenario);
     </script>
 </body>
 </html>
+
+       
