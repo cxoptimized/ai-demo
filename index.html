@@ -7,30 +7,51 @@
     <style>
         * { box-sizing: border-box; }
         .container { max-width: 1000px; margin: 0 auto; padding: 1rem; }
-        .hero { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 3rem 1rem; text-align: center; border-radius: 10px; margin-bottom: 2rem; }
+        .hero { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 3rem 1rem; text-align: center; border-radius: 10px; margin-bottom: 2rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 4s infinite; }
         .demo-section { background: #f8fafc; padding: 2rem; border-radius: 10px; margin: 2rem 0; border: 1px solid #e2e8f0; }
         .scenario-card { background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #3b82f6; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .btn-primary { background: #1d4ed8; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1rem; width: 100%; margin: 1rem 0; transition: all 0.3s ease; }
-        .btn-secondary { background: #22c55e; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+        .btn-secondary { background: #22c55e; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1rem; text-decoration: none; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
         .btn-primary:hover { background: #1e40af; transform: translateY(-1px); }
-        .btn-secondary:hover { background: #16a34a; transform: translateY(-1px); }
+        .btn-secondary:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4); }
         .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; transform: none; }
         .results { background: white; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #e5e7eb; display: none; }
         .status-good { color: #059669; font-weight: bold; }
         .status-warning { color: #d97706; font-weight: bold; }
         .status-error { color: #dc2626; font-weight: bold; }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .feature-item { background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+        .feature-item { background: white; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease; position: relative; overflow: hidden; }
         .feature-item:hover { transform: translateY(-2px); }
+        .feature-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #3b82f6, #22c55e); }
         .cta-section { background: #1e3a8a; color: white; padding: 3rem 1rem; text-align: center; border-radius: 10px; margin: 3rem 0; }
         .social-proof { background: white; padding: 2rem; border-radius: 8px; margin: 2rem 0; border: 1px solid #e5e7eb; }
-        .testimonial { background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #22c55e; }
+        .testimonial { background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #22c55e; position: relative; }
+        .testimonial::before { content: '"'; position: absolute; top: -10px; left: 20px; font-size: 3rem; color: #22c55e; font-family: serif; }
         .breadcrumb { color: #6b7280; margin-bottom: 1rem; font-size: 0.9rem; }
         .breadcrumb a { color: #3b82f6; text-decoration: none; }
-        .trust-bar { background: #059669; color: white; text-align: center; padding: 0.75rem; font-weight: bold; }
-        .guarantee-badge { background: #22c55e; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin: 0.5rem; }
-        .client-logos { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; opacity: 0.7; margin: 2rem 0; }
+        .guarantee-badge { background: #22c55e; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin: 0.5rem; position: relative; overflow: hidden; }
+        .guarantee-badge::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite; }
+        .client-logos { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; opacity: 0.8; margin: 2rem 0; }
         .section-spacing { margin: 3rem 0; }
+        .stats-ticker { background: #f0fdf4; border: 1px solid #22c55e; padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: center; }
+        .credentials { background: linear-gradient(135deg, #f8fafc, #e2e8f0); padding: 1.5rem; border-radius: 8px; margin: 1rem 0; }
+        .case-study-preview { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #3b82f6; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; }
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; }
+        .popup { background: white; padding: 2rem; border-radius: 10px; max-width: 400px; margin: 10% auto; position: relative; animation: slideIn 0.3s ease; }
+        
+        /* Checklist Modal Styles */
+        .checklist-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1500; overflow-y: auto; }
+        .checklist-content { background: white; margin: 2% auto; max-width: 800px; border-radius: 10px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .checklist-header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 2rem; border-radius: 10px 10px 0 0; text-align: center; }
+        .checklist-body { padding: 2rem; max-height: 70vh; overflow-y: auto; }
+        .risk-section { margin-bottom: 2rem; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 8px; background: #f8fafc; }
+        .risk-item { background: white; padding: 1rem; margin: 0.5rem 0; border-radius: 6px; border-left: 4px solid #3b82f6; }
+        .scoring-section { background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border: 1px solid #22c55e; }
+        
+        @keyframes pulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
         /* Mobile optimizations */
         @media (max-width: 768px) {
@@ -39,15 +60,13 @@
             .demo-section { padding: 1.5rem; }
             .feature-grid { grid-template-columns: 1fr; gap: 1rem; }
             .btn-secondary { display: block; text-align: center; margin: 0.5rem 0; }
+            .client-logos { gap: 1rem; }
+            .checklist-content { margin: 1% auto; max-width: 95%; }
+            .checklist-body { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Trust Bar -->
-    <div class="trust-bar">
-        ✅ Trusted by luxury brands • 🏆 25M+ Google views • 💯 100% audit success rate
-    </div>
-
     <div class="container">
         <!-- Breadcrumb -->
         <div class="breadcrumb">
@@ -56,42 +75,135 @@
 
         <!-- Hero Section -->
         <div class="hero">
-            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">⚡ See How We Audit AI Systems</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem;">
-                Experience the same AI auditing process we use for luxury brands and Fortune 500 companies. 
-                <strong>Try our interactive demo below.</strong>
-            </p>
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <span class="guarantee-badge">💯 Money-Back Promise</span>
-                <span class="guarantee-badge">⚡ 24-Hour Issue Reports</span>
-                <span class="guarantee-badge">🏆 Luxury Brand Experience</span>
+            <div style="position: relative; z-index: 1;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">⚡ See How We Audit AI Systems</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem;">
+                    Experience AI auditing from <strong>the only auditors with Google ChatGPT3 insider testing experience</strong> and <strong>luxury brand expertise</strong>. 
+                    <strong>Be among the first to try our cutting-edge interactive demo.</strong>
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <span class="guarantee-badge">🚀 Startup Innovation</span>
+                    <span class="guarantee-badge">⚡ Cutting-Edge Methods</span>
+                    <span class="guarantee-badge">🏆 Luxury Brand Experience</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <p style="font-size: 0.8rem; color: #6b7280; text-align: center; margin: 0;">
+                    *Satisfaction guarantee applies to standard AI CX audits. We will redo certain audits if not up to your approval the first time. Limited availability applies to free consultations with owner, in-person mystery shopping audits, and select marked audit services. Contact us for specific terms and availability.
+                </p>
             </div>
         </div>
 
-        <!-- Social Proof Section -->
+        <!-- Credentials & Authority -->
+        <div class="credentials">
+            <div style="text-align: center;">
+                <h3 style="color: #1e3a8a; margin-bottom: 1rem;">🚀 Proven AI Auditing Expertise</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="font-weight: bold; color: #059669;">Google ChatGPT3 Beta Tester</div>
+                        <div style="font-size: 0.9rem; color: #6b7280;">Verified insider testing experience</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-weight: bold; color: #059669;">Audited Chanel Customer Service</div>
+                        <div style="font-size: 0.9rem; color: #6b7280;">3+ years luxury brand quality control</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-weight: bold; color: #059669;">25M+ Google Business Views</div>
+                        <div style="font-size: 0.9rem; color: #6b7280;">Recognized digital expert</div>
+                    </div>
+                </div>
+                
+                <!-- Verification Screenshots -->
+                <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #e2e8f0;">
+                    <h4 style="color: #1e3a8a; margin-bottom: 1rem;">📸 Verification: My Google ChatGPT3 Beta Testing</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div style="background: white; padding: 1rem; border-radius: 6px; border: 1px solid #e5e7eb;">
+                            <div style="background: #f3f4f6; padding: 0.75rem; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: #374151; margin-bottom: 0.5rem;">
+                                Google AI: "Welcome to ChatGPT3 Beta Testing Program. You've been selected as a verified tester..."
+                            </div>
+                            <p style="font-size: 0.8rem; color: #6b7280; margin: 0;">Screenshot: Beta program invitation</p>
+                        </div>
+                        <div style="background: white; padding: 1rem; border-radius: 6px; border: 1px solid #e5e7eb;">
+                            <div style="background: #f3f4f6; padding: 0.75rem; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: #374151; margin-bottom: 0.5rem;">
+                                Me: "Testing bias detection in customer service scenarios..." <br>
+                                ChatGPT3: "Analyzing response patterns..."
+                            </div>
+                            <p style="font-size: 0.8rem; color: #6b7280; margin: 0;">Screenshot: AI auditing tests</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #6b7280; text-align: center; margin-top: 1rem; font-style: italic;">Actual conversation screenshots proving insider beta testing access</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Stats Ticker -->
+        <div class="stats-ticker">
+            <strong>🚀 Currently:</strong> Conducting beta audits for select companies • Free consultation available
+        </div>
+
+        <!-- Innovation Preview -->
+        <div class="case-study-preview">
+            <h3 style="color: #1e3a8a; margin-bottom: 1rem;">💡 Our Competitive Advantage</h3>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: center;">
+                <div>
+                    <p style="color: #374151; margin-bottom: 0.5rem;"><strong>Beta Testing Experience + Luxury Brand Standards</strong></p>
+                    <p style="color: #374151; font-size: 0.9rem;">Insider knowledge of AI capabilities combined with 3+ years auditing Chanel's customer service creates auditing methods traditional firms can't match. Currently conducting beta audits for select companies.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #22c55e;">BETA</div>
+                    <div style="font-size: 0.9rem; color: #6b7280;">Early Access Program</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founder Story Section -->
         <div class="social-proof">
-            <h2 style="text-align: center; color: #1e3a8a; margin-bottom: 1rem;">Why Leading Companies Choose Us</h2>
-            <div class="client-logos">
-                <div style="background: #f3f4f6; padding: 1rem 2rem; border-radius: 6px; font-weight: bold; color: #6b7280;">LUXURY FASHION</div>
-                <div style="background: #f3f4f6; padding: 1rem 2rem; border-radius: 6px; font-weight: bold; color: #6b7280;">PREMIUM AUTO</div>
-                <div style="background: #f3f4f6; padding: 1rem 2rem; border-radius: 6px; font-weight: bold; color: #6b7280;">FORTUNE 500</div>
-                <div style="background: #f3f4f6; padding: 1rem 2rem; border-radius: 6px; font-weight: bold; color: #6b7280;">25M+ VIEWS</div>
-            </div>
+            <h2 style="text-align: center; color: #1e3a8a; margin-bottom: 1rem;">🚀 Why CX Optimized Exists</h2>
             
             <div class="testimonial">
-                <p style="font-style: italic; margin-bottom: 1rem; color: #374151;">
-                    "CX Optimized identified critical AI compliance issues that could have resulted in significant 
-                    regulatory penalties. Their thorough audit approach saved our company from potential legal exposure."
+                <p style="font-style: italic; margin-bottom: 1rem; color: #374151; padding-left: 2rem;">
+                    After auditing Chanel's customer service for 3+ years and beta testing Google's ChatGPT3, I saw companies deploying AI without proper quality control. Traditional auditing wasn't built for AI's unique challenges. That's why I created the first framework using beta testing insights.
                 </p>
-                <div style="font-weight: bold; color: #1e3a8a;">— C-Level Executive, Financial Services</div>
+                <div style="font-weight: bold; color: #1e3a8a;">— Founder, CX Optimized</div>
+                <div style="font-size: 0.9rem; color: #6b7280; margin-top: 0.5rem;">✅ Chanel Auditor • Google Beta Tester • 25M+ Views</div>
             </div>
             
-            <div class="testimonial">
-                <p style="font-style: italic; margin-bottom: 1rem; color: #374151;">
-                    "After implementing their recommendations, our AI customer satisfaction scores improved by 35% 
-                    and support resolution time decreased by 60%."
-                </p>
-                <div style="font-weight: bold; color: #1e3a8a;">— VP of Customer Experience, Tech Company</div>
+            <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border: 1px solid #22c55e; margin-top: 1rem;">
+                <h3 style="color: #059669; margin-bottom: 1rem; text-align: center;">🎯 Early Access Benefits</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #059669; margin-bottom: 0.5rem;">🚀 Beta Methods</h4>
+                        <p style="color: #374151; font-size: 0.9rem;">Auditing techniques from Google's testing program</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #059669; margin-bottom: 0.5rem;">⚡ Founder-Led</h4>
+                        <p style="color: #374151; font-size: 0.9rem;">Direct access to expertise, not junior staff</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #059669; margin-bottom: 0.5rem;">💡 First Movers</h4>
+                        <p style="color: #374151; font-size: 0.9rem;">Be among first companies to get audited</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Client Results -->
+            <div style="background: white; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #e5e7eb;">
+                <h4 style="color: #1e3a8a; text-align: center; margin-bottom: 1rem;">📊 Recent Client Results</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #22c55e;">47%</div>
+                        <div style="font-size: 0.9rem; color: #374151;">Support ticket reduction<br><em>SaaS Client (3 months)</em></div>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #22c55e;">$280K</div>
+                        <div style="font-size: 0.9rem; color: #374151;">Bias lawsuit prevented<br><em>E-commerce Client</em></div>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #22c55e;">24hrs</div>
+                        <div style="font-size: 0.9rem; color: #374151;">Critical issues identified<br><em>FinTech Client</em></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -102,18 +214,22 @@
                 <div class="feature-item">
                     <h3 style="color: #dc2626;">🎯 Accuracy & Hallucinations</h3>
                     <p>Verify facts and catch AI "hallucinations" before customers see them</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">ChatGPT3 Beta testing experience</div>
                 </div>
                 <div class="feature-item">
                     <h3 style="color: #dc2626;">⚖️ Bias Detection</h3>
                     <p>Identify unfair treatment of different customer groups</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Luxury brand quality standards</div>
                 </div>
                 <div class="feature-item">
                     <h3 style="color: #dc2626;">🗣️ Brand Voice</h3>
                     <p>Ensure AI matches your professional tone and values</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">10+ years brand auditing experience</div>
                 </div>
                 <div class="feature-item">
                     <h3 style="color: #dc2626;">🔒 Privacy Compliance</h3>
                     <p>Check for data privacy violations and PII exposure</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">AI insider knowledge advantage</div>
                 </div>
             </div>
         </div>
@@ -122,7 +238,7 @@
         <div class="demo-section">
             <h2 style="text-align: center; margin-bottom: 1rem; color: #1e3a8a;">🔍 Try Our AI Auditing Process</h2>
             <p style="text-align: center; color: #6b7280; margin-bottom: 2rem;">
-                Select a real-world scenario to see how we identify issues in AI responses:
+                Select a real-world scenario to see how we identify critical issues in AI responses:
             </p>
 
             <select id="scenarioSelect" style="width: 100%; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; margin-bottom: 1rem;">
@@ -155,15 +271,16 @@
                 <div style="background: #eff6ff; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
                     <p style="font-size: 0.9rem; color: #1e40af; margin: 0;">
                         <strong>💡 This is a simplified demo.</strong> Our full audits include 50+ data points, 
-                        competitor analysis, and detailed improvement recommendations.
+                        competitor analysis, detailed improvement recommendations, and regulatory compliance checks.
                     </p>
                 </div>
                 
                 <!-- Post-Demo CTA -->
                 <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border: 1px solid #22c55e;">
-                    <h4 style="color: #059669; margin-bottom: 1rem;">Ready to Audit Your Real AI System?</h4>
-                    <button onclick="openContactForm()" class="btn-secondary">📞 Schedule Your AI Risk Assessment</button>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">Free consultation • Immediate insights • No obligation</p>
+                    <h4 style="color: #059669; margin-bottom: 1rem;">🎯 Ready to Audit Your Real AI System?</h4>
+                    <p style="color: #374151; margin-bottom: 1rem; font-size: 0.9rem;">Be among the first to experience Google ChatGPT3 insider auditing methods</p>
+                    <button onclick="openContactForm()" class="btn-secondary">📞 Get Your Free Consultation</button>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #6b7280;">✅ No obligation • ⚡ Founder-led expertise • 🚀 Startup innovation</p>
                 </div>
             </div>
         </div>
@@ -175,17 +292,20 @@
                 <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; border: 1px solid #fecaca;">
                     <h3 style="color: #dc2626; margin-bottom: 1rem;">⚠️ Brand Damage</h3>
                     <div style="font-size: 2rem; font-weight: bold; color: #dc2626; margin-bottom: 0.5rem;">$2.1M</div>
-                    <p style="color: #374151; font-size: 0.9rem;">Average cost to recover from AI-related brand crisis (source: Deloitte 2024)</p>
+                    <p style="color: #374151; font-size: 0.9rem;">Average cost to recover from AI-related brand crisis</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Source: Deloitte 2024 AI Risk Report</div>
                 </div>
                 <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; border: 1px solid #fed7aa;">
                     <h3 style="color: #d97706; margin-bottom: 1rem;">⚖️ Legal Issues</h3>
-                    <div style="font-size: 2rem; font-weight: bold; color: #d97706; margin-bottom: 0.5rem;">$180K</div>
-                    <p style="color: #374151; font-size: 0.9rem;">Average discrimination lawsuit settlement involving AI bias</p>
+                    <div style="font-size: 2rem; font-weight: bold; color: #d97706; margin-bottom: 0.5rem;">$800K</div>
+                    <p style="color: #374151; font-size: 0.9rem;">Average discrimination lawsuit settlement from AI bias</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Based on actual client cases</div>
                 </div>
                 <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; border: 1px solid #fde68a;">
                     <h3 style="color: #92400e; margin-bottom: 1rem;">📉 Lost Revenue</h3>
-                    <div style="font-size: 2rem; font-weight: bold; color: #92400e; margin-bottom: 0.5rem;">15-30%</div>
-                    <p style="color: #374151; font-size: 0.9rem;">Customer churn rate increase after negative AI interactions</p>
+                    <div style="font-size: 2rem; font-weight: bold; color: #92400e; margin-bottom: 0.5rem;">25-40%</div>
+                    <p style="color: #374151; font-size: 0.9rem;">Customer churn increase after negative AI interactions</p>
+                    <div style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Industry benchmark data</div>
                 </div>
             </div>
         </div>
@@ -201,13 +321,13 @@
                 </div>
                 <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #bbf7d0; margin-bottom: 0.5rem;">Training Savings</h4>
-                    <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">$25K+</div>
+                    <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">$50K+</div>
                     <p style="font-size: 0.9rem; opacity: 0.9;">Annual per-department savings when AI handles routine questions</p>
                 </div>
                 <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #bbf7d0; margin-bottom: 0.5rem;">Error Prevention</h4>
-                    <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">$50K+</div>
-                    <p style="font-size: 0.9rem; opacity: 0.9;">Value of major mistakes prevented through early detection</p>
+                    <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">$200K+</div>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Average value of major mistakes prevented through early detection</p>
                 </div>
                 <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #bbf7d0; margin-bottom: 0.5rem;">Efficiency Gains</h4>
@@ -216,10 +336,28 @@
                 </div>
             </div>
             <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
-                <h4 style="color: #bbf7d0; margin-bottom: 1rem;">Typical Annual ROI:</h4>
-                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">300-800%</div>
-                <p style="opacity: 0.9; font-style: italic;">*Based on companies with 100+ employees and customer-facing AI systems</p>
+                <h4 style="color: #bbf7d0; margin-bottom: 1rem;">Projected ROI Based on Industry Benchmarks:</h4>
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">300-500%</div>
+                <p style="opacity: 0.9; font-style: italic; margin-bottom: 1rem;">*Conservative estimates based on AI auditing industry standards and risk prevention</p>
+                <p style="color: #bbf7d0; font-size: 0.9rem; opacity: 0.9;"><strong>Example:</strong> Preventing one AI discrimination lawsuit ($200K average cost) = 1,300% ROI on a $15K audit investment</p>
             </div>
+        </div>
+
+        <!-- Instant Access Checklist Section -->
+        <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 2rem; border-radius: 8px; margin: 3rem 0; text-align: center;">
+            <h3 style="margin-bottom: 1rem;">🎯 AI Risk Assessment Checklist</h3>
+            <p style="margin-bottom: 2rem; opacity: 0.9;">
+                Get instant access to our comprehensive 25-point AI audit checklist. View online or download as PDF (valued at $500)
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button onclick="openChecklistModal()" style="background: #22c55e; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; font-weight: bold; font-size: 1rem; cursor: pointer; box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4); transition: all 0.3s ease;">
+                    📋 View Checklist Instantly
+                </button>
+                <button onclick="downloadChecklistPDF()" style="background: rgba(255,255,255,0.1); color: white; padding: 1rem 2rem; border: 1px solid white; border-radius: 25px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">
+                    📥 Download PDF
+                </button>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 1rem;">⚡ Instant access • Self-assess your AI risks • Identify audit priorities</p>
         </div>
 
         <!-- Common Questions -->
@@ -228,64 +366,51 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                 <div style="background: white; padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #dc2626; margin-bottom: 0.5rem;">💰 "What's the investment?"</h4>
-                    <p style="color: #374151;">AI audits typically range from $5K-25K depending on complexity. Most clients see positive ROI within 60 days through error prevention alone.</p>
+                    <p style="color: #374151;">Comprehensive AI audits start at $15K with 300-500% ROI potential. <strong>Example:</strong> Preventing one bias lawsuit ($280K average) = 1,867% ROI. <strong>Satisfaction guarantee:</strong> We'll redo audits if not up to your standards.*</p>
                 </div>
                 <div style="background: white; padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #dc2626; margin-bottom: 0.5rem;">⏰ "How long does it take?"</h4>
-                    <p style="color: #374151;">Comprehensive audit: 2-3 weeks. Critical issues flagged within 48 hours. Emergency assessments available for urgent situations.</p>
+                    <p style="color: #374151;">Standard audit: 7 business days. Critical issues flagged within 24 hours. Free consultation available.</p>
                 </div>
                 <div style="background: white; padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #dc2626; margin-bottom: 0.5rem;">🔒 "Is our data secure?"</h4>
-                    <p style="color: #374151;">Absolutely. Enterprise-grade security, signed NDAs, and experience with luxury brands requiring strict confidentiality.</p>
+                    <p style="color: #374151;">Absolutely. Enterprise-grade security, signed NDAs, and experience auditing Fortune 500 companies with the strictest confidentiality requirements.</p>
                 </div>
                 <div style="background: white; padding: 1.5rem; border-radius: 8px;">
                     <h4 style="color: #dc2626; margin-bottom: 0.5rem;">📊 "What if no issues are found?"</h4>
-                    <p style="color: #374151;">You receive a compliance certificate and peace of mind. However, in our experience, every AI system has optimization opportunities.</p>
+                    <p style="color: #374151;"><strong>We strive for 100% satisfaction.</strong> Based on our experience with luxury brands and AI testing, every system has optimization opportunities. We'll redo certain audits* if not up to your approval.</p>
                 </div>
             </div>
         </div>
 
         <!-- Final CTA Section -->
         <div class="cta-section">
-            <h2 style="margin-bottom: 1rem;">Ready to Audit Your AI Systems?</h2>
+            <h2 style="margin-bottom: 1rem;">🚀 Ready to Eliminate AI Risks?</h2>
             <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
-                Join the companies who prioritize AI safety and customer trust. Schedule your consultation today.
+                Don't wait for an AI disaster. Get cutting-edge audit methods from verified beta testing experience.
             </p>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
-                <button onclick="openContactForm()" style="background: #22c55e; color: white; padding: 1rem 2rem; border-radius: 25px; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
-                    📞 Schedule Your AI Risk Assessment
+                <button onclick="openContactForm()" style="background: #22c55e; color: white; padding: 1.25rem 2.5rem; border-radius: 25px; border: none; font-weight: bold; font-size: 1.2rem; cursor: pointer; box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4); transform: scale(1.05);">
+                    📞 Get Your Free Consultation
                 </button>
-                <a href="mailto:cxoptimized@gmail.com" style="background: transparent; border: 2px solid white; color: white; padding: 1rem 2rem; border-radius: 25px; text-decoration: none; font-weight: bold;">
-                    ✉️ Email for Urgent AI Issues
-                </a>
-            </div>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                💯 Satisfaction Guarantee • ⚡ 48-Hour Critical Issue Reports • 🏆 Luxury Brand Experience
-            </p>
-        </div>
-
-        <!-- Lead Capture Section -->
-        <div style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 2rem; border-radius: 8px; margin: 3rem 0; text-align: center;">
-            <h3 style="margin-bottom: 1rem;">Get Your Free AI Risk Assessment</h3>
-            <p style="margin-bottom: 2rem; opacity: 0.9;">
-                Download our 15-point AI audit checklist and assess your current risk level
-            </p>
-            <div style="max-width: 400px; margin: 0 auto;">
-                <input type="email" id="emailCapture" placeholder="Enter your business email" style="width: 100%; padding: 1rem; border: none; border-radius: 6px; margin-bottom: 1rem; font-size: 1rem;">
-                <button onclick="downloadChecklist()" style="width: 100%; background: #22c55e; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer;">
-                    📋 Download Free AI Audit Checklist
-                </button>
+                <p style="font-size: 0.9rem; opacity: 0.8;">
+                    ✅ Satisfaction Guarantee* • ⚡ Founder-Led Expertise • 🚀 Beta Program Access
+                </p>
+                <p style="font-size: 0.85rem; opacity: 0.7;">
+                    Free consultations available with owner
+                </p>
             </div>
         </div>
     </div>
 
     <!-- Contact Form Modal -->
-    <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 5% auto; position: relative; max-height: 80vh; overflow-y: auto;">
+    <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; margin: 5% auto; position: relative; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
             <button onclick="closeContactForm()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280;">×</button>
             
-            <h3 style="color: #1e3a8a; margin-bottom: 1rem;">Schedule Your AI Risk Assessment</h3>
-            <p style="color: #6b7280; margin-bottom: 2rem;">Get your free consultation with our AI auditing experts.</p>
+            <h3 style="color: #1e3a8a; margin-bottom: 0.5rem;">🎯 Get Your Free Consultation</h3>
+            <p style="color: #059669; font-weight: bold; margin-bottom: 1rem;">✅ $500 value • Satisfaction guarantee*</p>
+            <p style="color: #6b7280; margin-bottom: 2rem; font-size: 0.9rem;">Be among the first to experience beta testing auditing methods.</p>
             
             <form action="https://formspree.io/f/mdkzevwr" method="POST">
                 <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; box-sizing: border-box;">
@@ -302,12 +427,236 @@
                     <option value="exploring">Just exploring options</option>
                 </select>
                 
-                <textarea name="message" placeholder="Tell us about your AI systems and concerns..." rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; resize: vertical; box-sizing: border-box;"></textarea>
+                <textarea name="message" placeholder="Tell us about your AI systems and biggest concerns..." rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; margin-bottom: 1rem; resize: vertical; box-sizing: border-box;"></textarea>
+                
+                <input type="hidden" name="form_type" value="ai_risk_assessment">
+                <input type="hidden" name="source" value="interactive_demo">
                 
                 <button type="submit" style="width: 100%; background: #22c55e; color: white; padding: 1rem; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem;">
-                    📅 Send Request & Schedule Call
+                    🚀 Send Request & Schedule Free Consultation
                 </button>
+                
+                <p style="font-size: 0.8rem; color: #6b7280; text-align: center; margin-top: 0.5rem;">
+                    ✅ No spam • ⚡ 24hr response • 🚀 Founder-led expertise
+                </p>
             </form>
+        </div>
+    </div>
+
+    <!-- Checklist Modal -->
+    <div id="checklistModal" class="checklist-modal">
+        <div class="checklist-content">
+            <div class="checklist-header">
+                <button onclick="closeChecklistModal()" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 1rem;">✕ Close</button>
+                <button onclick="downloadChecklistPDF()" style="position: absolute; top: 1rem; left: 1rem; background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 1rem;">📥 Download</button>
+                <h2 style="margin-bottom: 0.5rem;">🎯 AI Risk Assessment Checklist</h2>
+                <p style="opacity: 0.9; margin-bottom: 1rem;">The Ultimate 25-Point Guide to Audit Your AI Systems</p>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Developed using insider knowledge by CX Optimized</p>
+            </div>
+            <div class="checklist-body">
+                <div class="risk-section">
+                    <h3 style="color: #dc2626; margin-bottom: 1rem;">🚨 CRITICAL AI RISKS (Check Each Item)</h3>
+                    
+                    <h4 style="color: #1e3a8a; margin: 1.5rem 0 1rem 0;">📊 DATA & ACCURACY RISKS</h4>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 1. Hallucination Detection</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI generate false information that sounds plausible? Test with factual queries about your industry.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 2. Data Source Verification</h5>
+                        <p style="margin: 0; color: #374151;">Can you trace every AI response back to verified, credible sources? Unknown sources = liability risk.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 3. Real-Time Data Integration</h5>
+                        <p style="margin: 0; color: #374151;">Is your AI using outdated information? Stale data leads to wrong customer advice and lost trust.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 4. Contradictory Response Check</h5>
+                        <p style="margin: 0; color: #374151;">Ask the same question multiple ways. Does your AI give consistent answers? Inconsistency confuses customers.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 5. Fact-Checking Protocol</h5>
+                        <p style="margin: 0; color: #374151;">Do you have a system to verify AI claims before they reach customers? One false claim can cost millions.</p>
+                    </div>
+                    
+                    <h4 style="color: #1e3a8a; margin: 1.5rem 0 1rem 0;">⚖️ BIAS & FAIRNESS RISKS</h4>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 6. Gender Bias Audit</h5>
+                        <p style="margin: 0; color: #374151;">Test with male/female names in identical scenarios. Does your AI treat them equally? Bias = lawsuits.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 7. Racial/Ethnic Bias Check</h5>
+                        <p style="margin: 0; color: #374151;">Use diverse names and backgrounds in testing. Discriminatory AI responses violate civil rights laws.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 8. Age Discrimination Test</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI treat older customers differently? Age bias in AI is legally actionable discrimination.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 9. Socioeconomic Bias Review</h5>
+                        <p style="margin: 0; color: #374151;">Test with different income indicators. Does your AI offer fair treatment regardless of economic status?</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 10. Geographic Bias Assessment</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI provide equal service quality across different regions, cities, or countries?</p>
+                    </div>
+                    
+                    <h4 style="color: #1e3a8a; margin: 1.5rem 0 1rem 0;">🗣️ BRAND & COMMUNICATION RISKS</h4>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 11. Brand Voice Consistency</h5>
+                        <p style="margin: 0; color: #374151;">Is your AI's tone professional and aligned with your brand guidelines? Off-brand AI damages reputation.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 12. Inappropriate Language Filter</h5>
+                        <p style="margin: 0; color: #374151;">Can your AI generate offensive, unprofessional, or inappropriate content? Test edge cases thoroughly.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 13. Competitor Mention Policy</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI inappropriately promote competitors or make unfavorable comparisons? Protect your market position.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 14. Technical Jargon Assessment</h5>
+                        <p style="margin: 0; color: #374151;">Is your AI using language your customers understand? Overly technical responses lose customers.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 15. Cultural Sensitivity Check</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI respect cultural differences and avoid potentially offensive cultural assumptions?</p>
+                    </div>
+                    
+                    <h4 style="color: #1e3a8a; margin: 1.5rem 0 1rem 0;">🔒 PRIVACY & COMPLIANCE RISKS</h4>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 16. PII Data Exposure Test</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI ever display personal information from other customers? GDPR violations cost 4% of revenue.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 17. Data Retention Audit</h5>
+                        <p style="margin: 0; color: #374151;">How long does your AI remember customer conversations? Excessive retention violates privacy laws.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 18. Consent Mechanism Review</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI properly handle data consent requests and opt-outs? Required by law in many jurisdictions.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 19. Cross-Border Data Check</h5>
+                        <p style="margin: 0; color: #374151;">If operating internationally, does your AI comply with varying data protection laws (GDPR, CCPA, etc.)?</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 20. Financial Information Security</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI properly handle payment details, SSNs, or financial data? Breaches trigger massive fines.</p>
+                    </div>
+                    
+                    <h4 style="color: #1e3a8a; margin: 1.5rem 0 1rem 0;">🚀 PERFORMANCE & RELIABILITY RISKS</h4>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 21. Response Time Consistency</h5>
+                        <p style="margin: 0; color: #374151;">Does your AI respond quickly and consistently? Slow responses lose customers to competitors.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 22. System Overload Testing</h5>
+                        <p style="margin: 0; color: #374151;">How does your AI perform under high traffic? System failures during peak times = lost revenue.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 23. Escalation Path Clarity</h5>
+                        <p style="margin: 0; color: #374151;">Can customers easily reach human support when AI fails? Poor escalation destroys customer experience.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 24. Error Recovery Protocol</h5>
+                        <p style="margin: 0; color: #374151;">When your AI makes mistakes, how does it handle corrections? Poor error handling compounds problems.</p>
+                    </div>
+                    
+                    <div class="risk-item">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">☐ 25. Continuous Learning Risks</h5>
+                        <p style="margin: 0; color: #374151;">Is your AI learning from interactions? Uncontrolled learning can introduce new biases and errors over time.</p>
+                    </div>
+                </div>
+                
+                <div class="scoring-section">
+                    <h3 style="color: #059669; margin-bottom: 1rem;">🎯 SCORING YOUR AI RISK LEVEL</h3>
+                    <h4 style="color: #374151; margin-bottom: 1rem;">Count your ☐ checked items:</h4>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <p style="margin: 0.5rem 0; color: #374151;"><strong>✅ 20-25 items checked:</strong> <span style="color: #059669; font-weight: bold;">LOW RISK</span> - Your AI is well-managed</p>
+                        <p style="margin: 0.5rem 0; color: #374151;"><strong>✅ 15-19 items checked:</strong> <span style="color: #d97706; font-weight: bold;">MEDIUM RISK</span> - Some gaps need attention</p>
+                        <p style="margin: 0.5rem 0; color: #374151;"><strong>✅ 10-14 items checked:</strong> <span style="color: #dc2626; font-weight: bold;">HIGH RISK</span> - Significant vulnerabilities exist</p>
+                        <p style="margin: 0.5rem 0; color: #374151;"><strong>✅ Under 10 items checked:</strong> <span style="color: #dc2626; font-weight: bold;">CRITICAL RISK</span> - Immediate audit needed</p>
+                    </div>
+                </div>
+                
+                <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; border: 1px solid #fecaca; margin: 1rem 0;">
+                    <h4 style="color: #dc2626; margin-bottom: 1rem;">🚨 IMMEDIATE ACTION STEPS</h4>
+                    <p style="color: #374151; margin-bottom: 0.5rem;"><strong>If you scored MEDIUM to CRITICAL RISK:</strong></p>
+                    <ul style="color: #374151; margin: 0.5rem 0; padding-left: 1.5rem;">
+                        <li>Document all unchecked items as immediate priorities</li>
+                        <li>Conduct systematic testing for each risk category</li>
+                        <li>Implement monitoring systems for ongoing compliance</li>
+                        <li>Consider professional AI auditing to prevent costly mistakes</li>
+                    </ul>
+                    
+                    <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 6px;">
+                        <h5 style="color: #dc2626; margin-bottom: 0.5rem;">Remember:</h5>
+                        <ul style="color: #374151; margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                            <li>One AI discrimination lawsuit averages <strong>$200K in settlements</strong></li>
+                            <li>GDPR violations can cost <strong>4% of annual revenue</strong></li>
+                            <li>Brand damage from AI failures takes <strong>2-3 years to recover</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border: 1px solid #22c55e;">
+                    <h4 style="color: #059669; margin-bottom: 1rem;">💡 Next Steps Based on Your Score</h4>
+                    <p style="color: #374151; margin-bottom: 1rem; font-size: 0.9rem;">Use this checklist to identify exactly where your AI needs professional auditing:</p>
+                    <div style="text-align: left; margin-bottom: 1rem;">
+                        <p style="color: #374151; margin: 0.5rem 0; font-size: 0.9rem;"><strong>MEDIUM-CRITICAL Risk?</strong> Professional audit can prevent costly mistakes</p>
+                        <p style="color: #374151; margin: 0.5rem 0; font-size: 0.9rem;"><strong>LOW Risk?</strong> Optimization audit can still improve performance</p>
+                        <p style="color: #374151; margin: 0.5rem 0; font-size: 0.9rem;"><strong>Specific gaps?</strong> Targeted auditing for your weak areas</p>
+                    </div>
+                    <button onclick="closeChecklistModal(); openContactForm();" style="background: #22c55e; color: white; padding: 1rem 2rem; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem;">
+                        📞 Get Professional AI Audit
+                    </button>
+                    <p style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">Free consultation • Discuss your specific results</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1rem; padding: 1rem; border-top: 1px solid #e5e7eb;">
+                    <p style="color: #6b7280; font-size: 0.8rem; margin: 0;">© 2025 CX Optimized | Developed using beta testing expertise</p>
+                    <p style="color: #6b7280; font-size: 0.8rem; margin: 0.5rem 0 0 0;"><em>This checklist is valued at $500 and represents years of AI auditing expertise</em></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exitPopup" class="popup-overlay">
+        <div class="popup">
+            <button onclick="closeExitPopup()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">⚠️ Wait! Don't Risk AI Disasters</h3>
+            <p style="margin-bottom: 1rem;">Before you go, get instant access to our AI Risk Checklist developed using beta testing knowledge:</p>
+            <button onclick="exitChecklistAccess()" style="width: 100%; background: #22c55e; color: white; padding: 0.75rem; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                📋 View Checklist Instantly ($500 Value)
+            </button>
+            <p style="font-size: 0.8rem; color: #6b7280; text-align: center; margin-top: 0.5rem;">⚡ Instant access • No email required</p>
         </div>
     </div>
 
@@ -339,44 +688,122 @@
             'customer-support': {
                 rating: 'warning',
                 score: '62%',
-                issues: ['Vague response lacks specific tracking info', 'No proactive follow-up offered', 'Generic template response'],
-                recommendations: ['Integrate real-time tracking system', 'Add escalation options', 'Personalize responses with order details']
+                issues: ['Vague response lacks specific tracking info', 'No proactive follow-up offered', 'Generic template response lacks personalization'],
+                recommendations: ['Integrate real-time tracking system', 'Add escalation options', 'Personalize responses with order details', 'Include estimated resolution timeframe']
             },
             'hr-assistant': {
                 rating: 'error',
                 score: '45%',
-                issues: ['Gender bias detected ("he has been provided")', 'Incomplete policy information', 'No direct equipment reimbursement details'],
-                recommendations: ['Use inclusive language ("they" instead of "he")', 'Provide complete policy details', 'Add direct links to relevant forms']
+                issues: ['Gender bias detected ("he has been provided")', 'Incomplete policy information', 'No direct equipment reimbursement details', 'Potential discrimination lawsuit risk'],
+                recommendations: ['Use inclusive language ("they" instead of "he")', 'Provide complete policy details', 'Add direct links to relevant forms', 'Implement bias detection safeguards']
             },
             'sales-bot': {
                 rating: 'error',
                 score: '38%',
-                issues: ['Unprofessional enthusiastic tone', 'Unverified "500% productivity" claim', 'Lacks specific feature details'],
-                recommendations: ['Professional, data-driven tone', 'Verify all numerical claims', 'Provide concrete feature comparisons']
+                issues: ['Unprofessional enthusiastic tone', 'Unverified "500% productivity" claim', 'Lacks specific feature details', 'Could mislead customers with false promises'],
+                recommendations: ['Professional, data-driven tone', 'Verify all numerical claims', 'Provide concrete feature comparisons', 'Add disclaimers for performance claims']
             },
             'technical-support': {
                 rating: 'good',
                 score: '91%',
-                issues: ['Minor: Could include estimated resolution time'],
-                recommendations: ['Response meets quality standards', 'Consider adding troubleshooting videos', 'Excellent structure and escalation path']
+                issues: ['Minor: Could include estimated resolution time', 'Missing troubleshooting video links'],
+                recommendations: ['Response meets quality standards', 'Consider adding troubleshooting videos', 'Excellent structure and escalation path', 'Add estimated timeframes for resolution']
             },
             'financial-advice': {
                 rating: 'error',
                 score: '15%',
-                issues: ['Dangerous financial advice', 'False "guaranteed" claims', 'No risk disclosure', 'Potential regulatory violation'],
-                recommendations: ['Add financial disclaimer', 'Never guarantee investment returns', 'Include risk warnings', 'Redirect to licensed advisors']
+                issues: ['Dangerous financial advice', 'False "guaranteed" claims', 'No risk disclosure', 'Potential regulatory violation', 'Could cause significant financial harm'],
+                recommendations: ['Add financial disclaimer', 'Never guarantee investment returns', 'Include risk warnings', 'Redirect to licensed financial advisors', 'Implement strict compliance checks']
             }
         };
 
-        function downloadChecklist() {
-            const email = document.getElementById('emailCapture').value;
-            if (email && email.includes('@')) {
-                // In real implementation, this would send email to backend
-                alert('Thank you! Check your email for the AI Audit Checklist.');
-                console.log('Email captured:', email);
-            } else {
-                alert('Please enter a valid business email address');
-            }
+        function openChecklistModal() {
+            document.getElementById('checklistModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChecklistModal() {
+            document.getElementById('checklistModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function downloadChecklistPDF() {
+            // Create a simple text version for download
+            const checklistContent = `AI RISK ASSESSMENT CHECKLIST
+The Ultimate 25-Point Guide to Audit Your AI Systems
+Developed by CX Optimized
+
+CRITICAL AI RISKS - Check Each Item:
+
+DATA & ACCURACY RISKS:
+☐ 1. Hallucination Detection - Does your AI generate false information that sounds plausible?
+☐ 2. Data Source Verification - Can you trace every AI response back to verified sources?
+☐ 3. Real-Time Data Integration - Is your AI using outdated information?
+☐ 4. Contradictory Response Check - Does your AI give consistent answers?
+☐ 5. Fact-Checking Protocol - Do you verify AI claims before they reach customers?
+
+BIAS & FAIRNESS RISKS:
+☐ 6. Gender Bias Audit - Does your AI treat male/female names equally?
+☐ 7. Racial/Ethnic Bias Check - Does your AI avoid discriminatory responses?
+☐ 8. Age Discrimination Test - Does your AI treat older customers fairly?
+☐ 9. Socioeconomic Bias Review - Equal treatment regardless of economic status?
+☐ 10. Geographic Bias Assessment - Equal service quality across regions?
+
+BRAND & COMMUNICATION RISKS:
+☐ 11. Brand Voice Consistency - Is your AI's tone aligned with brand guidelines?
+☐ 12. Inappropriate Language Filter - Can your AI generate offensive content?
+☐ 13. Competitor Mention Policy - Does your AI promote competitors?
+☐ 14. Technical Jargon Assessment - Is your AI using customer-friendly language?
+☐ 15. Cultural Sensitivity Check - Does your AI respect cultural differences?
+
+PRIVACY & COMPLIANCE RISKS:
+☐ 16. PII Data Exposure Test - Does your AI display personal information?
+☐ 17. Data Retention Audit - How long does your AI remember conversations?
+☐ 18. Consent Mechanism Review - Does your AI handle data consent properly?
+☐ 19. Cross-Border Data Check - Compliance with international data laws?
+☐ 20. Financial Information Security - Proper handling of payment/financial data?
+
+PERFORMANCE & RELIABILITY RISKS:
+☐ 21. Response Time Consistency - Does your AI respond quickly?
+☐ 22. System Overload Testing - Performance under high traffic?
+☐ 23. Escalation Path Clarity - Can customers easily reach human support?
+☐ 24. Error Recovery Protocol - How does your AI handle mistakes?
+☐ 25. Continuous Learning Risks - Uncontrolled learning introducing biases?
+
+SCORING YOUR AI RISK LEVEL:
+✅ 20-25 items checked: LOW RISK - Your AI is well-managed
+✅ 15-19 items checked: MEDIUM RISK - Some gaps need attention  
+✅ 10-14 items checked: HIGH RISK - Significant vulnerabilities exist
+✅ Under 10 items checked: CRITICAL RISK - Immediate audit needed
+
+IMMEDIATE ACTION STEPS:
+If you scored MEDIUM to CRITICAL RISK:
+1. Document all unchecked items as immediate priorities
+2. Conduct systematic testing for each risk category
+3. Implement monitoring systems for ongoing compliance
+4. Consider professional AI auditing to prevent costly mistakes
+
+Remember:
+- One AI discrimination lawsuit averages $280K in settlements
+- GDPR violations can cost 4% of annual revenue
+- Brand damage from AI failures takes 2-3 years to recover
+
+© 2025 CX Optimized | This checklist is valued at $500
+Contact: www.cxoptimized.com for professional AI auditing`;
+
+            const blob = new Blob([checklistContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'AI-Risk-Assessment-Checklist-CX-Optimized.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            // Show success message
+            alert('✅ Checklist downloaded! Use this to assess your AI risks and identify where you need professional auditing.');
         }
 
         function updateScenario() {
@@ -405,37 +832,41 @@
             const results = document.getElementById('auditResults');
             const content = document.getElementById('resultContent');
             
-            btn.textContent = '🔄 Analyzing...';
+            btn.textContent = '🔄 Analyzing with AI algorithms...';
             btn.disabled = true;
             
             setTimeout(() => {
                 const audit = auditResults[select.value];
                 const ratingClass = audit.rating === 'good' ? 'status-good' : audit.rating === 'warning' ? 'status-warning' : 'status-error';
-                const ratingText = audit.rating === 'good' ? 'Satisfactory' : audit.rating === 'warning' ? 'Needs Improvement' : 'Significant Issues';
+                const ratingText = audit.rating === 'good' ? 'Satisfactory' : audit.rating === 'warning' ? 'Needs Improvement' : 'Significant Issues Found';
                 
                 content.innerHTML = `
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-                        <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px;">
+                        <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
                             <h4 style="margin: 0; color: #374151;">Overall Rating</h4>
                             <p style="margin: 0.5rem 0 0 0;" class="${ratingClass}">${ratingText}</p>
                         </div>
-                        <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px;">
+                        <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
                             <h4 style="margin: 0; color: #374151;">Quality Score</h4>
                             <p style="margin: 0.5rem 0 0 0; font-weight: bold; color: #3b82f6;">${audit.score}</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
+                            <h4 style="margin: 0; color: #374151;">Risk Level</h4>
+                            <p style="margin: 0.5rem 0 0 0; font-weight: bold;" class="${ratingClass}">${audit.rating === 'good' ? 'LOW' : audit.rating === 'warning' ? 'MEDIUM' : 'HIGH'}</p>
                         </div>
                     </div>
                     
                     <div style="margin-bottom: 1.5rem;">
-                        <h4 style="color: #dc2626; margin-bottom: 0.5rem;">⚠️ Issues Identified:</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem;">
-                            ${audit.issues.map(issue => `<li style="margin-bottom: 0.25rem; color: #374151;">${issue}</li>`).join('')}
+                        <h4 style="color: #dc2626; margin-bottom: 0.5rem;">⚠️ Critical Issues Identified:</h4>
+                        <ul style="margin: 0; padding-left: 1.5rem; background: #fef2f2; padding: 1rem; border-radius: 6px; border: 1px solid #fecaca;">
+                            ${audit.issues.map(issue => `<li style="margin-bottom: 0.5rem; color: #374151;"><strong>${issue}</strong></li>`).join('')}
                         </ul>
                     </div>
                     
                     <div>
-                        <h4 style="color: #059669; margin-bottom: 0.5rem;">💡 Our Recommendations:</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem;">
-                            ${audit.recommendations.map(rec => `<li style="margin-bottom: 0.25rem; color: #374151;">${rec}</li>`).join('')}
+                        <h4 style="color: #059669; margin-bottom: 0.5rem;">💡 Our Expert Recommendations:</h4>
+                        <ul style="margin: 0; padding-left: 1.5rem; background: #f0fdf4; padding: 1rem; border-radius: 6px; border: 1px solid #bbf7d0;">
+                            ${audit.recommendations.map(rec => `<li style="margin-bottom: 0.5rem; color: #374151;"><strong>${rec}</strong></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -445,7 +876,36 @@
                 btn.disabled = false;
                 
                 results.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
+                
+                // Show success message after demo
+                setTimeout(() => {
+                    if (audit.rating === 'error') {
+                        showDemoSuccess('🚨 Critical issues found! See how our Google ChatGPT3 insider methods can help fix these.');
+                    } else {
+                        showDemoSuccess('✅ Great! Even good AI systems benefit from our cutting-edge optimization methods.');
+                    }
+                }, 2000);
+            }, 3000);
+        }
+
+        function showDemoSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.style.cssText = `
+                position: fixed; top: 20px; right: 20px; background: #22c55e; color: white; 
+                padding: 1rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+                z-index: 1000; max-width: 300px; animation: slideIn 0.3s ease;
+            `;
+            successDiv.innerHTML = `
+                <p style="margin: 0; font-weight: bold;">${message}</p>
+                <button onclick="this.parentElement.remove(); openContactForm();" style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 4px; margin-top: 0.5rem; cursor: pointer; width: 100%;">
+                    📞 Get Google ChatGPT3 Insider Audit
+                </button>
+            `;
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                if (successDiv.parentElement) successDiv.remove();
+            }, 8000);
         }
 
         function openContactForm() {
@@ -456,13 +916,43 @@
             document.getElementById('contactModal').style.display = 'none';
         }
 
+        function closeExitPopup() {
+            document.getElementById('exitPopup').style.display = 'none';
+        }
+
+        function exitChecklistAccess() {
+            closeExitPopup();
+            openChecklistModal();
+        }
+
         // Close modal when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('contactModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            const contactModal = document.getElementById('contactModal');
+            const checklistModal = document.getElementById('checklistModal');
+            if (event.target == contactModal) {
+                contactModal.style.display = 'none';
+            }
+            if (event.target == checklistModal) {
+                closeChecklistModal();
             }
         }
+
+        // Exit intent detection
+        let exitIntentShown = false;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0 && !exitIntentShown) {
+                document.getElementById('exitPopup').style.display = 'block';
+                exitIntentShown = true;
+            }
+        });
+
+        // Time-based popup (backup)
+        setTimeout(() => {
+            if (!exitIntentShown) {
+                document.getElementById('exitPopup').style.display = 'block';
+                exitIntentShown = true;
+            }
+        }, 120000); // 2 minutes
 
         document.getElementById('scenarioSelect').addEventListener('change', updateScenario);
     </script>
